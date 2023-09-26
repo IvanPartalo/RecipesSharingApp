@@ -7,5 +7,6 @@ namespace BackendApp.Repository
         public void Create(string username, Recipe recipe);
         public Task<List<Recipe>> GetAll();
         public Task<bool> Delete(int id);
+        public Task<List<Ingredient>> GetRecipeIngredients(int id);
     }
 }

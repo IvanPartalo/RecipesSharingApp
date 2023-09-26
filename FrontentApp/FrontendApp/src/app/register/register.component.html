@@ -1,0 +1,37 @@
+<div style="margin: auto; width: 50%;">
+    <h1>{{title}}</h1>
+    <form>
+        <p>
+        <mat-form-field appearance="outline">
+            <mat-label>Username*</mat-label>
+            <input matInput placeholder="Username" [(ngModel)]="username" name="username"/>
+        </mat-form-field>
+        </p>
+        <p>
+        <mat-form-field appearance="outline">
+            <mat-label>First name*</mat-label>
+            <input matInput placeholder="First name" [(ngModel)]="firstName" name="firstName"/>
+        </mat-form-field>
+        </p>
+        <p>
+        <mat-form-field appearance="outline">
+            <mat-label>Last name*</mat-label>
+            <input matInput placeholder="Last name" [(ngModel)]="lastName" name="lastName"/>
+        </mat-form-field>
+        </p>
+        <p>
+        <mat-form-field appearance="outline">
+            <mat-label>Password*</mat-label>
+            <input type="password" matInput placeholder="Password" [(ngModel)]="password" name="password" />
+        </mat-form-field>
+        </p>
+        <p>
+        <mat-form-field appearance="outline">
+            <mat-label>Repeat password*</mat-label>
+            <input type="password" matInput placeholder="Repeat password" [(ngModel)]="confirmPassword" name="confirmPassword" />
+        </mat-form-field>
+        </p>
+        <button mat-flat-button (click)="register()"> Register </button>
+        <p style="color: red;">{{errorInfo}}</p>
+    </form>    
+</div>

@@ -8,5 +8,7 @@ namespace BackendApp.Services
         public Task<Admin> CreateAdmin(RegisterDTO registerDTO);
         public Task<User> CreateUser(RegisterDTO registerDTO);
         public Task<Cook> CreateCook(RegisterDTO registerDTO);
+        public Task<List<CookDTO>> GetAllCooks();
+        public Task<Cook> GetCookByUsername(string username);
     }
 }

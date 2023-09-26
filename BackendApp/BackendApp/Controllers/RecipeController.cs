@@ -40,5 +40,17 @@ namespace BackendApp.Controllers
             }
             return Ok();
         }
+        [Route("admindelete")]
+        [Authorize(Roles = Roles.Admin)]
+        [HttpDelete]
+        public async Task<ActionResult> RemoveRecipeByAdmin(int id)
+        {
+            var result = await _recipeService.RemoveRecipeByAdmin(id);
+            if (!result)
+            {
+                return NotFound();
+            }
+            return Ok();
+        }
     }
 }

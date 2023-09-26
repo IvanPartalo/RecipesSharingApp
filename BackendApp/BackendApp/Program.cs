@@ -59,6 +59,14 @@ namespace BackendApp
             });
             });
 
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy(name: "cors", builder =>
+                {
+                    builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod();
+                });
+            });
+
             builder.Services.AddIdentity<IdentityUser, IdentityRole>()
             .AddEntityFrameworkStores<RecipesDBContext>()
             .AddDefaultTokenProviders();
@@ -94,7 +102,7 @@ namespace BackendApp
             }
             app.UseAuthentication();
             app.UseAuthorization();
-
+            app.UseCors("cors");
 
             app.MapControllers();
 

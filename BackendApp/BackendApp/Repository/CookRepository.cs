@@ -29,5 +29,13 @@ namespace BackendApp.Repository
             }
             return false;
         }
+        public async Task<List<Cook>> GetAll()
+        {
+            return await _context.Cooks.Include(c => c.Recipes).ToListAsync();
+        }
+        public async Task<Cook> GetByUsername(string username)
+        {
+            return await _context.Cooks.Include(c => c.Recipes).FirstOrDefaultAsync(c => c.Username == username);
+        }
     }
 }

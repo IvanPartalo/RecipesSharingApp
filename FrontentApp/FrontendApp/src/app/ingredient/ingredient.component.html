@@ -1,0 +1,41 @@
+<div>
+    <br>
+<button (click)="toggleAddIngredient()"> New ingredient </button>
+<div *ngIf="isAddIngredient">
+    <table>
+        <tr>
+        <td>Name:</td>
+        <td><input type="text" name="name" [(ngModel)]="name"/></td>
+        </tr>
+        <tr>
+        <td>Unit:</td>
+        <td><select name="unit" [(ngModel)]="unit">
+            <option>gram</option>
+            <option>mililiter</option>
+            <option>piece</option>
+        </select></td>
+        </tr>
+        <tr><td><button (click)="AddIngredient()">Add ingredient</button></td></tr>
+    </table>
+  </div>
+ 
+<table mat-table [dataSource]="ingredients" class="mat-elevation-z8 ingredient-table">
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef> Name </th>
+      <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+    </ng-container>
+  
+    <ng-container matColumnDef="unit">
+      <th mat-header-cell *matHeaderCellDef> Unit </th>
+      <td mat-cell *matCellDef="let element"> {{element.measurementUnit}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="action">
+        <th mat-header-cell *matHeaderCellDef> Action </th>
+        <td mat-cell *matCellDef="let element"> <button (click)="Delete(element.id)">Delete</button> </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+</div>

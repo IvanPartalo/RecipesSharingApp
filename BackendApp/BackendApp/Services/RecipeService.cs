@@ -40,5 +40,9 @@ namespace BackendApp.Services
             }
             return await _recipeRepository.Delete(recipeId);
         }
+        public async Task<bool> RemoveRecipeByAdmin(int recipeId)
+        {
+            return await _recipeRepository.Delete(recipeId);
+        }
     }
 }

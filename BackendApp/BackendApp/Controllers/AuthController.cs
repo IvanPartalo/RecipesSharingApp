@@ -58,17 +58,13 @@ namespace BackendApp.Controllers
                 return Ok(new
                 {
                     token = new JwtSecurityTokenHandler().WriteToken(token),
-                    expiration = token.ValidTo
+                    expiration = token.ValidTo,
+                    userRoles
                 });
             }
             return Unauthorized();
         }
-        [Authorize (Roles = Roles.Admin)]
-        [HttpGet]
-        public bool IsAdmin()
-        {
-            return true;
-        }
+
         [HttpPost]
         [Route("register-user")]
         public async Task<IActionResult> RegisterUser(RegisterDTO model)
@@ -95,7 +91,7 @@ namespace BackendApp.Controllers
             _userService.CreateUser(model);
             return Ok();
         }
-
+        [Authorize(Roles = Roles.Admin)]
         [HttpPost]
         [Route("register-cook")]
         public async Task<IActionResult> RegisterCook(RegisterDTO model)
@@ -112,7 +108,7 @@ namespace BackendApp.Controllers
 
             var result = await _userManager.CreateAsync(user, model.Password);
             if (!result.Succeeded)
-                return StatusCode(StatusCodes.Status500InternalServerError);
+                return StatusCode(StatusCodes.Status400BadRequest);
 
             if (!await _roleManager.RoleExistsAsync(Roles.Cook))
                 await _roleManager.CreateAsync(new IdentityRole(Roles.Cook));
@@ -122,7 +118,7 @@ namespace BackendApp.Controllers
             _userService.CreateCook(model);
             return Ok();
         }
-        // registracija admina nece biti ukljucena u aplikaciju
+        // registracija admina nece biti ukljucena u frontend aplikaciju
         [HttpPost]
         [Route("register-admin")]
         public async Task<IActionResult> RegisterAdmin(RegisterDTO model)

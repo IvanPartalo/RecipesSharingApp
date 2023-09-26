@@ -8,5 +8,6 @@ namespace BackendApp.Services
         public Task<List<Recipe>> GetAll();
         public void AddRecipe(string cookName, RecipeDTO recipeDTO);
         public Task<bool> RemoveRecipe(string username, int id);
+        public Task<bool> RemoveRecipeByAdmin(int recipeId);
     }
 }

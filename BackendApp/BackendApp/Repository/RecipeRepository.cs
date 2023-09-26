@@ -36,5 +36,10 @@ namespace BackendApp.Repository
             await _context.SaveChangesAsync();
             return true;
         }
+        public async Task<List<Ingredient>> GetRecipeIngredients(int id)
+        {
+            Recipe recipe = await _context.Recipes.Include(r => r.Ingredients).FirstOrDefaultAsync(r => r.Id == id);
+            return recipe.Ingredients;
+        }
     }
 }
