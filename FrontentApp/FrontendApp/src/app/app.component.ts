@@ -53,7 +53,7 @@ export class AppComponent {
     this.authService.logOut()
     this.router.navigateByUrl('/login', {skipLocationChange: true}).then(() => {
       this.router.navigate(['/login']);
-      location.reload()
+      this.UpdateMenu()
     }); 
   }
 }

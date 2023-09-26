@@ -13,9 +13,20 @@ namespace BackendApp.Services
             _recipeRepository = recipeRepository;
             _cookRepository = cookRepository;
         }
-        public async Task<List<Recipe>> GetAll()
+        public async Task<List<RecipeOutputDTO>> GetAll()
         {
-            return await _recipeRepository.GetAll();
+            List<RecipeOutputDTO> recipeDTOs = new List<RecipeOutputDTO>();
+            var result = await _recipeRepository.GetAll();
+            foreach(var recipe in result)
+            {
+                RecipeOutputDTO recipeDTO = new RecipeOutputDTO(recipe.Id, recipe.Name, recipe.PreparationDescription, recipe.Ingredients);
+                foreach(User user in recipe.usersWhoBookMarked)
+                {
+                    recipeDTO.UsersWhoBookmarked.Add(user.Username);
+                }
+                recipeDTOs.Add(recipeDTO);
+            }
+            return recipeDTOs;
         }
         public void AddRecipe(string cookName, RecipeDTO recipeDTO)
         {

@@ -17,4 +17,12 @@ export class RegisterService {
       })
     )
   }
+  registerUser(user: RegisterUser) : Observable<any> {
+    var url = 'http://localhost:5240/api/Auth/register-user';
+    return this.http.post<any>(url, user).pipe(
+      map(response => {
+        return true
+      })
+    )
+  }
 }

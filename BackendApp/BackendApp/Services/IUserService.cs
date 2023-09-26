@@ -10,5 +10,7 @@ namespace BackendApp.Services
         public Task<Cook> CreateCook(RegisterDTO registerDTO);
         public Task<List<CookDTO>> GetAllCooks();
         public Task<Cook> GetCookByUsername(string username);
+        public Task<bool> BookmarkRecipe(string username, int recipeId);
+        public Task<List<Recipe>> getBookmarkedRecipes(string username);
     }
 }

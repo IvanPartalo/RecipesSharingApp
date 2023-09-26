@@ -18,12 +18,18 @@ export class RegisterComponent implements OnInit {
   confirmPassword: string = "";
   errorInfo: string = "";
   title: string = "Register"
+  isRegisterCook: boolean = false
+  isRegisterUser: boolean = false
   constructor(private activatedRoute: ActivatedRoute, private registerService: RegisterService, private router: Router){}
   ngOnInit(): void {
     this.sub = this.activatedRoute.params.subscribe(params => {
     this.userTypeToRegister = params['userTypeToRegister'];
     if(this.userTypeToRegister == 'cook'){
       this.title = "Register cook"
+      this.isRegisterCook = true
+    }
+    else{
+      this.isRegisterUser = true
     }
     });
   }
@@ -53,19 +59,43 @@ export class RegisterComponent implements OnInit {
       this.errorInfo = "passwords must match"
       return;
     }
-    this.registerService.registerCook(new RegisterUser(this.username, this.firstName, this.lastName, this.password)).subscribe({
-    next: (data) => {
-      alert('Cook registered') 
-      this.router.navigate(['recipes'])
-    } ,
-    error: (data) => {
-      if(data.status == 500){
-        this.errorInfo = "User with that username already exists, choose different one"
-      }
-      if(data.status == 400){
-        this.errorInfo = "Password must contain at least 8 characters, including at least one letter, number and non aplhanumeric sign"
-      }
+    if(this.isRegisterCook){
+      this.registerCook()
     }
-    })
+    else{
+      this.registerUser()
+    }
+  }
+  registerCook(){
+    this.registerService.registerCook(new RegisterUser(this.username, this.firstName, this.lastName, this.password)).subscribe({
+      next: (data) => {
+        alert('Cook registered') 
+        this.router.navigate(['recipes'])
+      } ,
+      error: (data) => {
+        if(data.status == 500){
+          this.errorInfo = "User with that username already exists, choose different one"
+        }
+        if(data.status == 400){
+          this.errorInfo = "Password must contain at least 8 characters, including at least one letter, number and non aplhanumeric sign"
+        }
+      }
+      })
+  }
+  registerUser(){
+    this.registerService.registerUser(new RegisterUser(this.username, this.firstName, this.lastName, this.password)).subscribe({
+      next: (data) => {
+        alert('User registered you will be redirected to login page') 
+        this.router.navigate(['login'])
+      } ,
+      error: (data) => {
+        if(data.status == 500){
+          this.errorInfo = "User with that username already exists, choose different one"
+        }
+        if(data.status == 400){
+          this.errorInfo = "Password must contain at least 8 characters, including at least one letter, number and non aplhanumeric sign"
+        }
+      }
+      })
   }
 }

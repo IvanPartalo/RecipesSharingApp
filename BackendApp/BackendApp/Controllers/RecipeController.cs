@@ -17,7 +17,7 @@ namespace BackendApp.Controllers
             _recipeService = recipeService;
         }
         [HttpGet]
-        public async Task<ActionResult<List<Recipe>>> GetRecipes()
+        public async Task<ActionResult<List<RecipeOutputDTO>>> GetRecipes()
         {
             var result = await _recipeService.GetAll();
             return Ok(result);

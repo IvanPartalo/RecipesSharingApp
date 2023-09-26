@@ -66,5 +66,20 @@ namespace BackendApp.Services
             }
             return cook;
         }
+        public async Task<bool> BookmarkRecipe(string username, int recipeId)
+        {
+            return await _userRepository.BookmarkRecipe(username, recipeId);
+        }
+        public async Task<List<Recipe>> getBookmarkedRecipes(string username)
+        {
+            var result = await _userRepository.getBookmarkedRecipes(username);
+            List<Recipe> recipes = new List<Recipe>();
+            foreach(var recipe in result)
+            {
+                recipe.usersWhoBookMarked.Clear();
+                recipes.Add(await _recipeRepository.GetById(recipe.Id));
+            }
+            return recipes;
+        }
     }
 }

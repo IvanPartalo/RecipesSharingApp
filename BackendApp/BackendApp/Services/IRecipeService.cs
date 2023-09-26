@@ -5,7 +5,7 @@ namespace BackendApp.Services
 {
     public interface IRecipeService
     {
-        public Task<List<Recipe>> GetAll();
+        public Task<List<RecipeOutputDTO>> GetAll();
         public void AddRecipe(string cookName, RecipeDTO recipeDTO);
         public Task<bool> RemoveRecipe(string username, int id);
         public Task<bool> RemoveRecipeByAdmin(int recipeId);

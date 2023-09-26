@@ -35,4 +35,13 @@ export class UserService {
       }),
     );
   }
+  getLogedInCook() : Observable<Cook> {
+    this.cooks = []
+    var url = 'http://localhost:5240/api/User/currentcook';
+    return this.http.get<Cook>(url).pipe(
+      map(response => {
+        return new Cook(response.username, response.firstName, response.lastName, response.recipes)
+      }),
+    );
+  }
 }

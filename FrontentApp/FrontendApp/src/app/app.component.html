@@ -14,13 +14,16 @@
 <button mat-button routerLink="/ingredients" *ngIf="isAdmin" >
   Ingredients
 </button>
-<button mat-button *ngIf="isCook" >
+<button mat-button routerLink="/addrecipe" *ngIf="isCook" >
+  Add recipe
+</button>
+<button mat-button *ngIf="isCook" [routerLink]="[ '/cook', '']">
   Your recipes
 </button>
 <button mat-button routerLink="/recipes">
   Recipes
 </button>
-<button mat-button *ngIf="isOrdinaryUser" >
+<button mat-button routerLink="/bookmarkedrecipes" *ngIf="isOrdinaryUser" >
   Bookmarked recipes
 </button>
 <button mat-button (click)="LogOut()" *ngIf="!userNotLogedIn">

@@ -13,7 +13,7 @@ namespace BackendApp.Repository
         }
         public async Task<List<Recipe>> GetAll()
         {
-            return await _context.Recipes.Include(r => r.Ingredients).ToListAsync();
+            return await _context.Recipes.Include(r => r.Ingredients).Include(r => r.usersWhoBookMarked).ToListAsync();
         }
         public void Create(string username, Recipe recipe)
         {
@@ -40,6 +40,10 @@ namespace BackendApp.Repository
         {
             Recipe recipe = await _context.Recipes.Include(r => r.Ingredients).FirstOrDefaultAsync(r => r.Id == id);
             return recipe.Ingredients;
+        }
+        public async Task<Recipe> GetById(int id)
+        {
+            return await _context.Recipes.Include(r => r.Ingredients).FirstOrDefaultAsync(r => r.Id == id);
         }
     }
 }

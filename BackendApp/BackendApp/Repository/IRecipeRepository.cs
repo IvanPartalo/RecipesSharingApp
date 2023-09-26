@@ -8,5 +8,6 @@ namespace BackendApp.Repository
         public Task<List<Recipe>> GetAll();
         public Task<bool> Delete(int id);
         public Task<List<Ingredient>> GetRecipeIngredients(int id);
+        public Task<Recipe> GetById(int id);
     }
 }

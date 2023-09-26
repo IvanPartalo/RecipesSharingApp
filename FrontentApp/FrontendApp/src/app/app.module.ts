@@ -20,6 +20,8 @@ import { IngredientComponent } from './ingredient/ingredient.component';
 import {MatTableModule} from '@angular/material/table';
 import { CooksComponent } from './cooks/cooks.component';
 import { CookComponent } from './cook/cook.component';
+import { AddRecipeComponent } from './add-recipe/add-recipe.component';
+import { BookmarkedRecipesComponent } from './bookmarked-recipes/bookmarked-recipes.component';
 
 
 const appRoutes: Routes = [
@@ -29,7 +31,9 @@ const appRoutes: Routes = [
   { path: 'recipes', component: RecipeComponent, pathMatch: 'full'},
   { path: 'ingredients', component: IngredientComponent, pathMatch: 'full'},
   { path: 'cooks', component: CooksComponent, pathMatch: 'full'},
-  { path: 'cook/:username', component: CookComponent, pathMatch: 'full'}
+  { path: 'cook/:username', component: CookComponent, pathMatch: 'full'},
+  { path: 'addrecipe', component: AddRecipeComponent, pathMatch: 'full'},
+  { path: 'bookmarkedrecipes', component: BookmarkedRecipesComponent, pathMatch: 'full'}
 ]
 
 @NgModule({
@@ -40,7 +44,9 @@ const appRoutes: Routes = [
     RecipeComponent,
     IngredientComponent,
     CooksComponent,
-    CookComponent
+    CookComponent,
+    AddRecipeComponent,
+    BookmarkedRecipesComponent
   ],
   imports: [
     BrowserModule,
