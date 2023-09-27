@@ -9,10 +9,10 @@ import { RecipeService } from '../services/recipe.service';
 })
 export class BookmarkedRecipesComponent {
   recipes: Recipe[] = []
-  isAdmin: boolean = false
-  isUser: boolean = false
+  username: any
   constructor(private recipeService: RecipeService){}
   ngOnInit(): void {
+    this.username = localStorage.getItem('username')
     this.recipeService.getBookMarkedRecipes().subscribe((responseData : Recipe[]) =>{
       this.recipes = responseData;
     });

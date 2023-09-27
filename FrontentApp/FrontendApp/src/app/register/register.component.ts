@@ -93,7 +93,8 @@ export class RegisterComponent implements OnInit {
           this.errorInfo = "User with that username already exists, choose different one"
         }
         if(data.status == 400){
-          this.errorInfo = "Password must contain at least 8 characters, including at least one letter, number and non aplhanumeric sign"
+          this.errorInfo = "Registration failed, check these two constraints: 1. Username must not contain any white spaces. "+
+          "2. Password must contain at least 8 characters, including at least one letter, number and non aplhanumeric sign"
         }
       }
       })

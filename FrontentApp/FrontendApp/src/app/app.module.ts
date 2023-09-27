@@ -25,7 +25,7 @@ import { BookmarkedRecipesComponent } from './bookmarked-recipes/bookmarked-reci
 
 
 const appRoutes: Routes = [
-  { path: '', redirectTo: 'login', pathMatch: 'full'},
+  { path: '', redirectTo: 'recipes', pathMatch: 'full'},
   { path: 'register/:userTypeToRegister', component: RegisterComponent, pathMatch: 'full'},
   { path: 'login', component: LoginComponent, pathMatch: 'full'},
   { path: 'recipes', component: RecipeComponent, pathMatch: 'full'},
