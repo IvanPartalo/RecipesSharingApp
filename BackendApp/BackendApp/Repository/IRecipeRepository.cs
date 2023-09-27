@@ -9,5 +9,6 @@ namespace BackendApp.Repository
         public Task<bool> Delete(int id);
         public Task<List<Ingredient>> GetRecipeIngredients(int id);
         public Task<Recipe> GetById(int id);
+        public Task<List<Recipe>> GetSearchedRecipes(string recipeName, string ingredientName);
     }
 }

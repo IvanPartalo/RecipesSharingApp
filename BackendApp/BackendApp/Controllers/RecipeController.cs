@@ -22,6 +22,13 @@ namespace BackendApp.Controllers
             var result = await _recipeService.GetAll();
             return Ok(result);
         }
+        [Route("search")]
+        [HttpPost]
+        public async Task<ActionResult<List<RecipeOutputDTO>>> GetSearchedRecipes(SearchDTO searchDTO)
+        {
+            var result = await _recipeService.GetSearchedRecipes(searchDTO);
+            return Ok(result);
+        }
         [Authorize(Roles = Roles.Cook)]
         [HttpPost]
         public ActionResult AddRecipe(RecipeDTO recipe)

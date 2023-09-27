@@ -29,7 +29,7 @@ namespace BackendApp.Repository
             await _context.SaveChangesAsync();
             return true;
         }
-
+        // ovo su sastojci koji postoje i koji se mogu dodati u recept
         public async Task<List<ExistingIngredient>> GetExistingIngredients()
         {
             return await _context.ExistingIngredients.ToListAsync();

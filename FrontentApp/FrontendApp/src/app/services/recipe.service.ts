@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable, catchError, map } from 'rxjs';
 import { Recipe } from '../model/recipe.model';
 import { RecipeCreate } from '../model/recipe-create.model';
+import { Search } from '../model/search.model';
 
 @Injectable({
   providedIn: 'root'
@@ -15,6 +16,18 @@ export class RecipeService {
     this.recipes = []
     var url = 'http://localhost:5240/api/Recipe';
     return this.http.get<Recipe[]>(url).pipe(
+      map(response => {
+        response.forEach(element => {
+             this.recipes.push(new Recipe(element.id, element.name, element.preparationDescription, element.ingredients, element.usersWhoBookmarked))
+        });
+        return this.recipes
+      }),
+    );
+  }
+  getSearchedRecipes(searchData: Search) : Observable<Recipe[]> {
+    this.recipes = []
+    var url = 'http://localhost:5240/api/Recipe/search';
+    return this.http.post<Recipe[]>(url, searchData).pipe(
       map(response => {
         response.forEach(element => {
              this.recipes.push(new Recipe(element.id, element.name, element.preparationDescription, element.ingredients, element.usersWhoBookmarked))

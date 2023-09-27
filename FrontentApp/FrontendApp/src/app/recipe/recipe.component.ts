@@ -4,8 +4,9 @@ import {MatDividerModule} from '@angular/material/divider';
 import {MatCardModule} from '@angular/material/card';
 import { Recipe } from '../model/recipe.model';
 import { RecipeService } from '../services/recipe.service';
-import { Subscription } from 'rxjs';
+import { Subscription, elementAt } from 'rxjs';
 import { AuthService } from '../services/auth.service';
+import { Search } from '../model/search.model';
 
 @Component({
   selector: 'app-recipe',
@@ -17,10 +18,14 @@ export class RecipeComponent implements OnInit {
   userSub: Subscription = new Subscription()
   isAdmin: boolean = false
   isUser: boolean = false
+  recipeName: string = ""
+  ingredient: string = "All"
+  ingredients: string[] = []
   constructor(private recipeService: RecipeService, private authService: AuthService){}
   ngOnInit(): void {
     this.recipeService.getRecipes().subscribe((responseData : Recipe[]) =>{
       this.recipes = responseData;
+      this.FillIngredientsList()
     });
     this.userSub = this.authService.user.subscribe({
       next: (data) => {
@@ -34,6 +39,7 @@ export class RecipeComponent implements OnInit {
         }
       }
     })
+    
   }
   CheckIfUserBookMarked(){
     let username = localStorage.getItem('username')
@@ -45,6 +51,16 @@ export class RecipeComponent implements OnInit {
         }
       })
     });
+  }
+  FillIngredientsList(){
+    this.ingredients.push("All")
+    this.recipes.forEach(element =>{
+      element.ingredients.forEach(i => {
+        if(!this.ingredients.includes(i.name)){
+          this.ingredients.push(i.name)
+        }
+      })
+    })
   }
   Delete(id: number){
     this.recipeService.deleteRecipeByAdmin(id).subscribe({
@@ -62,5 +78,25 @@ export class RecipeComponent implements OnInit {
         recipe.bookmarked = true
       }
     })
+  }
+  SearchRecipes(){
+    let searchData: Search = new Search(this.recipeName, this.ingredient)
+    console.log(searchData)
+    this.recipeService.getSearchedRecipes(searchData).subscribe((responseData : Recipe[]) =>{
+      this.recipes = responseData;
+      if(this.isUser){
+      this.CheckIfUserBookMarked()
+      }
+    });
+  }
+  Reset(){
+    this.recipeName = ""
+    this.ingredient = "All"
+    this.recipeService.getRecipes().subscribe((responseData : Recipe[]) =>{
+      this.recipes = responseData;
+      if(this.isUser){
+        this.CheckIfUserBookMarked()
+      }
+    });
   }
 }

@@ -15,6 +15,32 @@ namespace BackendApp.Repository
         {
             return await _context.Recipes.Include(r => r.Ingredients).Include(r => r.usersWhoBookMarked).ToListAsync();
         }
+        public async Task<List<Recipe>> GetSearchedRecipes(string recipeName, string ingredientName)
+        {
+            List<Recipe> filteredRecipesByName = await _context.Recipes.Include(r => r.Ingredients)
+                .Where(r => r.Name.ToLower().Contains(recipeName.ToLower()) || recipeName=="").ToListAsync();
+            if(ingredientName == "All")
+            {
+                return filteredRecipesByName;
+            }
+            return filterByIngredient(filteredRecipesByName, ingredientName);
+        }
+        private List<Recipe> filterByIngredient(List<Recipe> filteredRecipes, string ingredientName)
+        {
+            List<Recipe> filteredRecipesByIngredient = new List<Recipe>();
+            foreach (Recipe recipe in filteredRecipes)
+            {
+                foreach (Ingredient ingredient in recipe.Ingredients)
+                {
+                    if (ingredient.Name == ingredientName)
+                    {
+                        filteredRecipesByIngredient.Add(recipe);
+                        continue;
+                    }
+                }
+            }
+            return filteredRecipesByIngredient;
+        }
         public void Create(string username, Recipe recipe)
         {
             _context.Cooks.Include(c => c.Recipes).FirstOrDefault(c => c.Username == username).Recipes.Add(recipe);

@@ -1,4 +1,11 @@
 <div>
+    <input type="text" name="recipeName" [(ngModel)]="recipeName">
+    
+    <select name="ingredient" [(ngModel)]="ingredient">
+            <option  *ngFor="let i of ingredients">{{i}}</option>
+    </select>
+    <button (click)="SearchRecipes()">Search</button>
+    <button (click)="Reset()">Reset</button>
     <div *ngFor="let recipe of recipes">
         <mat-card class="example-card">
             <mat-card-header>

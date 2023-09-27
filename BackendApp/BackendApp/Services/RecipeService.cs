@@ -28,6 +28,21 @@ namespace BackendApp.Services
             }
             return recipeDTOs;
         }
+        public async Task<List<RecipeOutputDTO>> GetSearchedRecipes(SearchDTO searchDTO)
+        {
+            List<RecipeOutputDTO> recipeDTOs = new List<RecipeOutputDTO>();
+            var result = await _recipeRepository.GetSearchedRecipes(searchDTO.RecipeName, searchDTO.Ingredient);
+            foreach (var recipe in result)
+            {
+                RecipeOutputDTO recipeDTO = new RecipeOutputDTO(recipe.Id, recipe.Name, recipe.PreparationDescription, recipe.Ingredients);
+                foreach (User user in recipe.usersWhoBookMarked)
+                {
+                    recipeDTO.UsersWhoBookmarked.Add(user.Username);
+                }
+                recipeDTOs.Add(recipeDTO);
+            }
+            return recipeDTOs;
+        }
         public void AddRecipe(string cookName, RecipeDTO recipeDTO)
         {
             Recipe recipe = new Recipe();

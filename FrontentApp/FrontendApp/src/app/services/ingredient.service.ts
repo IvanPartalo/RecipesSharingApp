@@ -9,6 +9,7 @@ import { ExistingIngredientCreate } from '../model/existing-ingredient-create.mo
 })
 export class IngredientService {
   existingIngredients: ExistingIngredient[] = []
+  ingredients: string[] = []
   constructor(private http: HttpClient) { }
     
   getExistingIngredients() : Observable<ExistingIngredient[]> {
