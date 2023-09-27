@@ -1,24 +1,27 @@
+<h1>Create recipe</h1>
 <div class="row">
 <div class="column">
-<table>
+<table style="margin-top: 50px; font-size: large;">
     <tr>
         <td>Recipe name</td>
-        <td><input type="text" [(ngModel)]="recipeName"></td>
+        <td><input style="font-size: large;" type="text" [(ngModel)]="recipeName"></td>
     </tr>
     <tr>
         <td>Preparation description</td>
-        <td><input type="text" [(ngModel)]="preparationDescription"></td>
+        <td><input style="font-size: large;"  type="text" [(ngModel)]="preparationDescription"></td>
     </tr>
     <tr *ngFor="let ingredient of recipeIngredients">
         <td>{{ingredient.name}}</td>
-        <td><input type="text" [(ngModel)]="ingredient.quantity"></td>
-        <td>{{ingredient.measurementUnit}}</td>
+        <td><input style="font-size: large;"  type="text" [(ngModel)]="ingredient.quantity"></td>
+        <td>{{ingredient.measurementUnit}}s</td>
         <td> <button (click)="removeIngredient(ingredient)">Remove</button> </td>
     </tr>
 </table>
-<button (click)="submitRecipe()">Submit recipe</button>
+<br>
+<button style="float: right; margin-right: 30px;" mat-raised-button color="primary" (click)="submitRecipe()">Submit recipe</button>
 </div>
 <div class="column">
+<h2>Ingredients</h2>
 <table mat-table [dataSource]="ingredients" class="mat-elevation-z8">
     <ng-container matColumnDef="name">
       <th mat-header-cell *matHeaderCellDef> Name </th>
@@ -31,10 +34,14 @@
     </ng-container>
     <ng-container matColumnDef="add">
         <th mat-header-cell *matHeaderCellDef> Add </th>
-        <td mat-cell *matCellDef="let element"> <button (click)="addIngredient(element)">Add ingredient</button> </td>
+        <td mat-cell *matCellDef="let element"> <button mat-raised-button color="primary" (click)="addIngredient(element)">Add ingredient</button> </td>
     </ng-container>
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 </table>
 </div>
+
+</div>
+<div style="margin: 40px;">
+    <h3>Note: to add ingredient to recipe choose ingredient from right table and click add ingredient, then enter quantity of choosen ingredient in left table</h3>
 </div>

@@ -1,11 +1,23 @@
-<div>
-    <input type="text" name="recipeName" [(ngModel)]="recipeName">
-    
-    <select name="ingredient" [(ngModel)]="ingredient">
+<div style="margin-left: 15px;">
+    <h1>Recipes</h1>
+<h3>Search recipes: </h3>
+    <table>
+    <tr>
+    <td>Recipe name: </td>
+    <td><input type="text" name="recipeName" [(ngModel)]="recipeName"></td>
+    </tr>
+    <tr>
+    <td>Recipe ingredient: </td>
+    <td><select name="ingredient" [(ngModel)]="ingredient">
             <option  *ngFor="let i of ingredients">{{i}}</option>
-    </select>
-    <button (click)="SearchRecipes()">Search</button>
-    <button (click)="Reset()">Reset</button>
+        </select>
+    </td>
+    </tr>
+    </table>
+    <div style="margin: 20px;">
+    <button style="margin-right: 20px;" mat-raised-button (click)="SearchRecipes()">Search</button>
+    <button mat-raised-button (click)="Reset()">Reset</button>
+    </div>
     <div *ngFor="let recipe of recipes">
         <mat-card class="example-card">
             <mat-card-header>
@@ -18,8 +30,8 @@
             </ul>
             <mat-divider></mat-divider>
             <mat-card-actions>
-                <button mat-button *ngIf="isAdmin" (click)="Delete(recipe.id)">DELETE</button>
-                <button mat-button *ngIf="isUser && !recipe.bookmarked" (click)="Bookmark(recipe)">BOOKMARK</button>
+                <button mat-button mat-raised-button color="warn" *ngIf="isAdmin" (click)="Delete(recipe.id)">DELETE</button>
+                <button mat-raised-button *ngIf="isUser && !recipe.bookmarked" (click)="Bookmark(recipe)">BOOKMARK</button>
                 <button mat-button *ngIf="isUser && recipe.bookmarked">BOOKMARKED</button>
             </mat-card-actions>
             </mat-card-content>

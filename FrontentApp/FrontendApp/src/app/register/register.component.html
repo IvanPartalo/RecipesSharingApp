@@ -31,7 +31,7 @@
             <input type="password" matInput placeholder="Repeat password" [(ngModel)]="confirmPassword" name="confirmPassword" />
         </mat-form-field>
         </p>
-        <button mat-flat-button (click)="register()"> Register </button>
-        <p style="color: red;">{{errorInfo}}</p>
+        <button mat-raised-button color="primary" (click)="register()"> Register </button>
+        <p style="color: red; margin-top: 15px; font-size: large;">{{errorInfo}}</p>
     </form>    
 </div>

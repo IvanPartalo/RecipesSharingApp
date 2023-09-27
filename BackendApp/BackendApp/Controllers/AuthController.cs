@@ -81,7 +81,7 @@ namespace BackendApp.Controllers
 
             var result = await _userManager.CreateAsync(user, model.Password);
             if (!result.Succeeded)
-                return StatusCode(StatusCodes.Status500InternalServerError);
+                return StatusCode(StatusCodes.Status400BadRequest);
 
             if (!await _roleManager.RoleExistsAsync(Roles.User))
                 await _roleManager.CreateAsync(new IdentityRole(Roles.User));

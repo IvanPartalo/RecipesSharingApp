@@ -1,21 +1,21 @@
 <div>
     <br>
-<button (click)="toggleAddIngredient()"> New ingredient </button>
+<button style="margin-bottom: 15px" mat-raised-button color="primary" (click)="toggleAddIngredient()"> New ingredient </button>
 <div *ngIf="isAddIngredient">
-    <table>
+    <table style="font-size: large;">
         <tr>
         <td>Name:</td>
-        <td><input type="text" name="name" [(ngModel)]="name"/></td>
+        <td><input style="font-size: large;" type="text"  name="name" [(ngModel)]="name"/></td>
         </tr>
         <tr>
         <td>Unit:</td>
-        <td><select name="unit" [(ngModel)]="unit">
+        <td><select style="font-size: large;" name="unit" [(ngModel)]="unit">
             <option>gram</option>
             <option>mililiter</option>
             <option>piece</option>
         </select></td>
         </tr>
-        <tr><td><button (click)="AddIngredient()">Add ingredient</button></td></tr>
+        <tr ><td></td><td><button style="margin-top: 15px;" mat-raised-button color="primary" (click)="AddIngredient()">Submit</button></td></tr>
     </table>
   </div>
  
@@ -32,7 +32,7 @@
 
     <ng-container matColumnDef="action">
         <th mat-header-cell *matHeaderCellDef> Action </th>
-        <td mat-cell *matCellDef="let element"> <button (click)="Delete(element.id)">Delete</button> </td>
+        <td mat-cell *matCellDef="let element"> <button mat-raised-button color="warn" (click)="Delete(element.id)">Delete</button> </td>
     </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
